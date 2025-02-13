@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Nav, Logo, NumResults, Search } from "./components/Nav"
 import { Box } from "./components/Box";
 import { MovieList } from "./components/Movie";
@@ -56,8 +56,20 @@ const tempWatchedData = [
 
 export default function App() {
 
+  function storedWatchedMovies(){
+
+    const localStorageWatched = localStorage.getItem("watched");
+    return localStorageWatched?JSON.parse(localStorageWatched) : [];
+
+  }
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  })
+
+
   const [query, setQuery] = useState("");
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(storedWatchedMovies);
   const {movies,isLoading, error} = useFetchMovies(query);
   const [selectedId, setSelectedId] = useState(null); 
  
@@ -81,20 +93,24 @@ export default function App() {
     setWatched((watched) => [...watched, movie]);
   }
 
+  function handleRemoveWatched(id){
+    setWatched((watched) => watched.filter((movie)=> movie.imdbID !== id));
+  }
+
   return (
     <>
      <Nav>
         <Logo />
-        <Search  query = {query} setQuery={setQuery}/>
-        <NumResults movies = {movies}/>
-     </Nav>
+        <Search query={query} setQuery={setQuery} />
+        <NumResults movies={movies} />
+      </Nav>
 
       <main className="main">
 
         <Box>
-          {isLoading && <p className="laoder">Cargando...</p>}
+          {isLoading && <p className="loader">Cargando...</p>}
           {error && <p className="error">⛔ {error}</p>}
-          <MovieList movie = {movies} onSelectMovie={handleSelectMovie}/>
+          <MovieList movies = {movies} onSelectMovie={handleSelectMovie}/>
         </Box>
 
         <Box>
@@ -109,7 +125,7 @@ export default function App() {
             ) : (
               <>
               <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList watched={watched} removeWatchedMovie={handleRemoveWatched}/>
               </>
             )}
           </WatchedMoviesContainer>

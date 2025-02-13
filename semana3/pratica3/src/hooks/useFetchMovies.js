@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-const API_KEY = 
+export const API_KEY = '62c4e084';
 
 /**
  * 
@@ -20,33 +20,35 @@ export function useFetchMovies(query){
             return;
         }
 
-    async function fetchMovies(){
-        try {
-            setIsLoading(true)
-            setError(null);
+        async function fetchMovies(){
+            try {
+                setIsLoading(true)
+                setError(null);
 
-            const response = await 
-            fetch();
+                const response = await 
+                fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
 
-            if (!response.ok)
-                throw new Error("Error al cargar películas");
+                if (!response.ok)
+                    throw new Error("Error al cargar películas");
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if (data.response === "false")
-                throw new Error ("NO se encontraron resultados");
+                if (data.response === "False")
+                    throw new Error ("NO se encontraron resultados");
 
-            setMovies(data.Search);
-        } catch (err) {
-            setError(err.message);
-            setMovies([]);
-        } finally {
-            setIsLoading(false);
+                setMovies(data.Search);
+                
+            } catch (err) {
+                setError(err.message);
+                setMovies([]);
+            } finally {
+                setIsLoading(false);
+            }
         }
-    }
 
-    fetchMovies();
-    }, [query])
+        fetchMovies();
+
+    }, [query]);
 
     return {movies, isLoading, error};
 }

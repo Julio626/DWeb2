@@ -16,7 +16,7 @@ export const MovieList = ({ movies, onSelectMovie }) => {
                     movie = {movie} 
                     onSelectMovie = {onSelectMovie}
                 />
-        ))}
+            ))}
         </ul>
 
     )
@@ -36,7 +36,7 @@ export const Movie = ({movie, onSelectMovie}) => {
             <h3>{movie.Title}</h3>
             <div>
                 <p>
-                    <span>🗓</span>
+                    <span>🗓️</span>
                     <span>{movie.Year}</span>
                 </p>
             </div>

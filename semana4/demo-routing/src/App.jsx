@@ -7,10 +7,12 @@ import { AboutPage } from './Pages/AboutPage'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateUser } from './Pages/CreateUser'
 import { EditUser } from './Pages/EditUser'
+import { NavBar } from './components/NavBar'
 
 export const App = () => {
   return (
     <div>
+      <NavBar/>
         <h1>Demo Routing</h1>
         <hr />
         <Routes>
@@ -25,6 +27,9 @@ export const App = () => {
                 <Route  path = 'edit/:userid' element = {<EditUser/>}/>
             </Route>
         </Routes>
+        <Link to = "/">HomePage</Link>
+        <Link to = "/about">AboutPage</Link>
+        <Link to = "/about/team">Team</Link>
     </div>
   )
 }

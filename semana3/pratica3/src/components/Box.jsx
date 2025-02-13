@@ -12,7 +12,7 @@ export const Box = ({children}) => {
             >
                 {isOpen ? "–" : "+"}
             </button>
-            {isOpen && children }
+            {isOpen && children}
         </div>
     )
 }

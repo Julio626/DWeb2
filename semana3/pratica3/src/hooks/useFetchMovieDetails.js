@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-
+import {API_KEY} from "./useFetchMovies";
 
 
 /**
@@ -9,10 +8,10 @@ import { useEffect, useState } from "react";
  * @returns {Object}
  */
 
-export function useFetchMoviesDetails(selectedId){
+export function useFetchMovieDetails(selectedId){
     const [movie, setMovie] = useState({});
-    const [isLoading, setIsLoading] = (false);
-    const [error, setError] = useState;
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         
@@ -27,22 +26,22 @@ export function useFetchMoviesDetails(selectedId){
          * @param {string} selectedId 
          */
 
-        async function fetchMovieDetails (selectedId){
+        async function fetchMovieDetails(selectedId){
 
             try{
                 setIsLoading(true);
                 setError(null);
 
                 const response = await
-                fetch()
+                fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedId}`)
 
                 if (!response.ok)
                     throw new Error("Error al cargar los detalles de la pelicula");
 
-                const dara = await response.json
+                const data = await response.json();
                 setMovie(data);
 
-            } catch {
+            } catch (err) {
                 setError(error.message);
                 setMovie({});
             } finally {

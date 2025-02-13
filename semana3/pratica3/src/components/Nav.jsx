@@ -11,8 +11,8 @@ export function Logo(){
         <div className="logo">
             <span role="img">🍿</span>
             <h1>Palomitas de papel</h1>
-            </div>
-    )
+        </div>
+    );
 }
 
 export function Search({query, setQuery}){
@@ -24,14 +24,14 @@ export function Search({query, setQuery}){
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-    )
+    );
 }
 
-export function NumResults({movies}){
+export function NumResults ({movies = []}){
     return(
         <p className="num-results">
            <strong>{movies.length}</strong> resultados encontrados
         </p>
-    )
+    );
 }
  

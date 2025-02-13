@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFetchMoviesDetails } from "../hooks/useFetchMovieDetails";
+import { useFetchMovieDetails } from "../hooks/useFetchMovieDetails";
 import StarRating from "./StarRating";
 
 
@@ -15,7 +15,7 @@ import StarRating from "./StarRating";
 
 export const MovieDetails = ({ selectedId, onCloseMovie, onAddwatched, watched}) => {
 
-    const {movie, error, isLoading} = useFetchMoviesDetails(selectedId);
+    const {movie, error, isLoading} = useFetchMovieDetails(selectedId);
 
     const {
         Title: title,
@@ -30,7 +30,7 @@ export const MovieDetails = ({ selectedId, onCloseMovie, onAddwatched, watched})
     } = movie;
 
     const [userRating, setUserRating] = useState('');
-    const isWatched = watched.some(movie=> movie.imdbId === selectedId);
+    const isWatched = watched.some(movie=> movie.imdbID === selectedId);
     const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
 
     function handleAdd(){
@@ -82,8 +82,8 @@ export const MovieDetails = ({ selectedId, onCloseMovie, onAddwatched, watched})
                         )}
                     </div>
                     <p><em>{plot}</em></p>
-                    <p><b>Elenco:</b>{actors}</p>
-                    <p><b>Director:</b>{director}</p>
+                    <p><b>Elenco: </b>{actors}</p>
+                    <p><b>Director: </b>{director}</p>
                 </section>
                 </>
             )}
